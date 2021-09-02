@@ -658,6 +658,8 @@ void CEspConfig::loadBinding(binding_cfg &xcfg)
 
             if (xproc)
             {
+                ESPLOG(LogMin,  "We are in loadBinding");
+
                 IEspRpcBinding* bind = xproc(xcfg.name.str(), xcfg.type.str(), m_envpt.get(), m_process.str());
                 if (bind)
                     LOG(MCoperatorInfo, unknownJob,"Load binding %s (type: %s, process: %s) succeeded", xcfg.name.str(), xcfg.type.str(), m_process.str());
@@ -716,6 +718,8 @@ void CEspConfig::loadService(srv_cfg &xcfg)
 {
     esp_service_factory_t xproc = NULL;
     builtin *pdirect = getBuiltIn(xcfg.plugin.str());
+    ESPLOG(LogMin,  "We are in loadService");
+
     if (pdirect)
         xproc = pdirect->serv;
     else
@@ -1049,6 +1053,8 @@ IEspPlugin* CEspConfig::getPlugin(const char* name)
             return LINK(plgn);
         }
     }
+    ESPLOG(LogMin,  "We are in getPlugin");
+
     Owned<IEspPlugin> pplg = loadPlugin(name);
     if(pplg)
     {

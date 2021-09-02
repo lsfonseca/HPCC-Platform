@@ -310,6 +310,7 @@ public:
     virtual IPropertyTree* fetchBinding(const char* espProcess, const char* espStaticBinding) override
     {
         VStringBuffer xpath("%s[@espprocess='%s'][@espbinding='%s'][1]", ESDL_BINDING_PATH, espProcess, espStaticBinding);
+        ESPLOG(LogMin,  "We are in fetchBinding");
         try
         {
             Owned<IRemoteConnection> conn = checkQuerySDS().connect(xpath.str(), myProcessSession(), RTM_LOCK_READ, SDS_LOCK_TIMEOUT_DESDL);
