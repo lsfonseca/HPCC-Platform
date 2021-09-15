@@ -223,7 +223,7 @@ IEspUpdateLogRequestWrap* CLogContentFilter::filterLogContent(IEspUpdateLogReque
         if (!isEmptyString(userResp))
         {
             IPropertyTree* pTree = ensurePTree(logContentTree, espLogContentGroupNames[ESPLCGUserResp]);
-            Owned<IPropertyTree> userRespTree = createPTreeFromXMLString(userResp);
+            Owned<IPropertyTree> userRespTree = (userResp[0] == '<') ? createPTreeFromXMLString(userResp) : createPTreeFromJSONString(userResp);
             pTree->addPropTree(userRespTree->queryName(), LINK(userRespTree));
         }
         if (!isEmptyString(logDatasets))
