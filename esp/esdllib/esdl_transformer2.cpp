@@ -6,7 +6,7 @@
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+       ttp://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -1332,11 +1332,13 @@ void Esdl2Response::process(Esdl2TransformerContext &ctx, const char *out_name, 
                 if (ctx.do_output_ns)
                 {
                     ctx.writer->outputBeginNested(out_name, true);
-                    ctx.writer->outputXmlns("xmlns", ctx.ns.str());
+                    //ctx.writer->outputXmlns("xmlns", ctx.ns.str());
+                    ctx.writer->outputUtf8(rtlUtf8Length(ctx.ns.length(),ctx.ns.str()),ctx.ns.str(),"@xmlns");
 
                     if (ctx.schemaLocation.length() > 0 )
                     {
-                        ctx.writer->outputXmlns("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+                        //ctx.writer->outputXmlns("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+                        ctx.writer->outputUtf8(rtlUtf8Length(41,"http://www.w3.org/2001/XMLSchema-instance"),"http://www.w3.org/2001/XMLSchema-instance","@xmlns:xsi");
                         ctx.writer->outputUtf8(rtlUtf8Length(ctx.schemaLocation.length(),ctx.schemaLocation.str()),ctx.schemaLocation.str(),"@xsi:schemaLocation");
                     }
 
