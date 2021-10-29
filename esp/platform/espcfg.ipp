@@ -251,7 +251,7 @@ public:
     void loadAll()
     {
         loadProtocols();
-        DBGLOG("loadServices");
+        DBGLOG("we are in loadServices");
         try
         {
             loadServices();
@@ -263,7 +263,8 @@ public:
             throw(ie);
         }
         loadBindings();
-        if(useDali)
+        DBGLOG("Antes do esdlmonitor");
+//        if(useDali)
             startEsdlMonitor();
     }
 
