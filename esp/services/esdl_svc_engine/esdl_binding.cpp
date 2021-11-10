@@ -1691,7 +1691,6 @@ EsdlBindingImpl::EsdlBindingImpl()
 EsdlBindingImpl::EsdlBindingImpl(IPropertyTree* cfg, IPropertyTree* esdlArchive, const char *binding,  const char *process) : CHttpSoapBinding(cfg, binding, process)
 {
     //m_pCentralStore.setown(createEsdlCentralStore());
-    std::this_thread::sleep_for(std::chrono::milliseconds(10000));
 
     m_bindingName.set(binding);
     m_processName.set(process);

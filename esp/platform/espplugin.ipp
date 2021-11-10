@@ -48,7 +48,6 @@ public:
 
    bool load()
     {
-
         SharedObject::load(m_plugin.str(), true);       // I'm not really sure what this should be - if global (as default) there will be clashes between multiple dloads
         if (!loaded())
         {
