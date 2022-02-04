@@ -664,7 +664,7 @@ void CEspConfig::loadBinding(binding_cfg &xcfg)
                 else
                     OERRLOG("Failed to load binding %s (type: %s, process: %s)", xcfg.name.str(), xcfg.type.str(), m_process.str());
                 xcfg.bind.setown(bind);
-/*
+
                 if (serverstatus)
                 {
                     IPropertyTree *stTree= serverstatus->queryProperties()->addPropTree("ESPservice", createPTree("ESPservice", ipt_caseInsensitive));
@@ -676,7 +676,7 @@ void CEspConfig::loadBinding(binding_cfg &xcfg)
                     }
                     serverstatus->commitProperties();
                 }
-*/
+
 
             }
             else

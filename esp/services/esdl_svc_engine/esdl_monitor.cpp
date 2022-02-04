@@ -157,7 +157,6 @@ public:
     CEsdlMonitor() : m_isSubscribed(false)
     {
         constructEnvptTemplate();
-//        m_pCentralStore.setown(createEsdlCentralStore());
         m_esdlShare.setown(new CEsdlShare());
         m_esdlShare->start();
         DBGLOG("EsdlMonitor started.");

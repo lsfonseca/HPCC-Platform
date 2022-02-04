@@ -1690,14 +1690,14 @@ EsdlBindingImpl::EsdlBindingImpl()
 
 EsdlBindingImpl::EsdlBindingImpl(IPropertyTree* cfg, IPropertyTree* esdlArchive, const char *binding,  const char *process) : CHttpSoapBinding(cfg, binding, process)
 {
-    //m_pCentralStore.setown(createEsdlCentralStore());
-
     m_bindingName.set(binding);
     m_processName.set(process);
 
-    m_pESDLService = nullptr;
-    m_isAttached = false;
+    const char *application = queryComponentConfig().queryProp("@application");
 
+    m_pESDLService = nullptr;
+    m_isAttached = (strcmp(application, "esdl") == 0 ) ? false : true;
+    
     try
     {
         char currentDirectory[_MAX_DIR];
