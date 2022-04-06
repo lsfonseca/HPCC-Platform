@@ -54,8 +54,7 @@ RUN if [ ${USE_CPPUNIT} -eq 1 ] ; then apt-get install -y libcppunit-1.15-0 ; fi
 # these are developer tools - we may want to move them elsewhere so that they are only in the incremental builds?
 
 RUN apt-get install -y \
-    dnsutils \
-    nano 
+    dnsutils 
 
 # Set the locale
 RUN locale-gen en_US.UTF-8

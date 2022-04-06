@@ -223,7 +223,15 @@ IEspUpdateLogRequestWrap* CLogContentFilter::filterLogContent(IEspUpdateLogReque
         if (!isEmptyString(userResp))
         {
             IPropertyTree* pTree = ensurePTree(logContentTree, espLogContentGroupNames[ESPLCGUserResp]);
-            Owned<IPropertyTree> userRespTree = createPTreeFromXMLString(userResp);
+            Owned<IPropertyTree> userRespTree;
+            try
+            {
+                userRespTree.setown(createPTreeFromXMLString(userResp));
+            }
+            catch(const IPTreeReadException* e)
+            {
+                userRespTree.setown(createPTreeFromJSONString(userResp));
+            }
             pTree->addPropTree(userRespTree->queryName(), LINK(userRespTree));
         }
         if (!isEmptyString(logDatasets))
@@ -265,7 +273,15 @@ IEspUpdateLogRequestWrap* CLogContentFilter::filterLogContent(IEspUpdateLogReque
                 const char* resp = req->getUserResponse();
                 if (!resp || !*resp)
                     continue;
-                originalContentTree.setown(createPTreeFromXMLString(resp));
+
+                try
+                {
+                    originalContentTree.setown(createPTreeFromXMLString(resp));
+                }
+                catch(const IPTreeReadException* e)
+                {
+                    originalContentTree.setown(createPTreeFromJSONString(resp));
+                }
             }
             if (!originalContentTree)
                 continue;

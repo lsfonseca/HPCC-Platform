@@ -1048,7 +1048,7 @@ void EsdlServiceImpl::handleServiceRequest(IEspContext &context,
             context.addTraceSummaryTimeStamp(LogNormal, "end-reqproc", TXSUMMARY_GRP_CORE|TXSUMMARY_GRP_ENTERPRISE);
             context.addTraceSummaryValue(LogNormal, "custom_fields.recCount", recordCount, TXSUMMARY_GRP_ENTERPRISE);
 
-            if(isPublishedQuery(implType))
+            if(isPublishedQuery(implType)  || implType==EsdlMethodImplScript)
                 tgtctx.setown(createTargetContext(context, tgtcfg.get(), srvdef, mthdef, req));
 
             reqcontent.set(reqWriter->str());
@@ -1073,8 +1073,10 @@ void EsdlServiceImpl::handleServiceRequest(IEspContext &context,
                 getSoapBody(out, origResp);
             else
             {
-                m_pEsdlTransformer->process(context, EsdlResponseMode, srvdef.queryName(), mthdef.queryName(), out, origResp.str(), txResultFlags, ns, schema_location);
-                runPostEsdlScript(context, scriptContext, srvdef, mthdef, out, txResultFlags, ns, schema_location);
+                bool isProcessingJSON = (flags & ESDL_BINDING_RESPONSE_JSON);
+                m_pEsdlTransformer->process(context, EsdlResponseMode, srvdef.queryName(), mthdef.queryName(), out, origResp.str(), txResultFlags, ns, isProcessingJSON ? NULL : schema_location, isProcessingJSON ? WTJSONObject : WTStandard);
+                runPostEsdlScript(context, scriptContext, srvdef, mthdef, out, txResultFlags, ns, isProcessingJSON ? NULL : schema_location);
+                logdata.set("<LogDatasets/>");
             }
         }
     }
